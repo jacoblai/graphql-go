@@ -1,6 +1,7 @@
 package relay
 
 import (
+	"context"
 	"encoding/base64"
 	"encoding/json"
 	"errors"
@@ -8,7 +9,7 @@ import (
 	"net/http"
 	"strings"
 
-	graphql "github.com/jacoblai/graphql-go"
+	"github.com/jacoblai/graphql-go"
 )
 
 func MarshalID(kind string, spec interface{}) graphql.ID {
@@ -58,7 +59,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := h.Schema.Exec(r.Context(), params.Query, params.OperationName, params.Variables)
+	response := h.Schema.Exec(context.WithValue(r.Context(), "headers", r.Header), params.Query, params.OperationName, params.Variables)
 	responseJSON, err := json.Marshal(response)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
