@@ -6,17 +6,17 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/graph-gophers/graphql-go/errors"
-	"github.com/graph-gophers/graphql-go/internal/common"
-	"github.com/graph-gophers/graphql-go/internal/exec"
-	"github.com/graph-gophers/graphql-go/internal/exec/resolvable"
-	"github.com/graph-gophers/graphql-go/internal/exec/selected"
-	"github.com/graph-gophers/graphql-go/internal/query"
-	"github.com/graph-gophers/graphql-go/internal/schema"
-	"github.com/graph-gophers/graphql-go/internal/validation"
-	"github.com/graph-gophers/graphql-go/introspection"
-	"github.com/graph-gophers/graphql-go/log"
-	"github.com/graph-gophers/graphql-go/trace"
+	"github.com/jacoblai/graphql-go/errors"
+	"github.com/jacoblai/graphql-go/internal/common"
+	"github.com/jacoblai/graphql-go/internal/exec"
+	"github.com/jacoblai/graphql-go/internal/exec/resolvable"
+	"github.com/jacoblai/graphql-go/internal/exec/selected"
+	"github.com/jacoblai/graphql-go/internal/query"
+	"github.com/jacoblai/graphql-go/internal/schema"
+	"github.com/jacoblai/graphql-go/internal/validation"
+	"github.com/jacoblai/graphql-go/introspection"
+	"github.com/jacoblai/graphql-go/log"
+	"github.com/jacoblai/graphql-go/trace"
 )
 
 // ParseSchema parses a GraphQL schema and attaches the given root resolver. It returns an error if
@@ -184,11 +184,11 @@ func (s *Schema) exec(ctx context.Context, queryString string, operationName str
 
 	// Subscriptions are not valid in Exec. Use schema.Subscribe() instead.
 	if op.Type == query.Subscription {
-		return &Response{Errors: []*errors.QueryError{&errors.QueryError{ Message: "graphql-ws protocol header is missing" }}}
+		return &Response{Errors: []*errors.QueryError{&errors.QueryError{Message: "graphql-ws protocol header is missing"}}}
 	}
 	if op.Type == query.Mutation {
 		if _, ok := s.schema.EntryPoints["mutation"]; !ok {
-			return &Response{Errors: []*errors.QueryError{{ Message: "no mutations are offered by the schema" }}}
+			return &Response{Errors: []*errors.QueryError{{Message: "no mutations are offered by the schema"}}}
 		}
 	}
 

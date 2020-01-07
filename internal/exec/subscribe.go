@@ -8,11 +8,11 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/graph-gophers/graphql-go/errors"
-	"github.com/graph-gophers/graphql-go/internal/common"
-	"github.com/graph-gophers/graphql-go/internal/exec/resolvable"
-	"github.com/graph-gophers/graphql-go/internal/exec/selected"
-	"github.com/graph-gophers/graphql-go/internal/query"
+	"github.com/jacoblai/graphql-go/errors"
+	"github.com/jacoblai/graphql-go/internal/common"
+	"github.com/jacoblai/graphql-go/internal/exec/resolvable"
+	"github.com/jacoblai/graphql-go/internal/exec/selected"
+	"github.com/jacoblai/graphql-go/internal/query"
 )
 
 type Response struct {
