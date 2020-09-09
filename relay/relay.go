@@ -2,7 +2,9 @@ package relay
 
 import (
 	"context"
+	"crypto/md5"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -57,6 +59,11 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&params); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
+	}
+
+	if params.OperationName != "IntrospectionQuery" {
+		sum := md5.Sum([]byte(params.Query))
+		r.Header.Set("body-md5", hex.EncodeToString(sum[:]))
 	}
 
 	response := h.Schema.Exec(context.WithValue(r.Context(), "headers", r.Header), params.Query, params.OperationName, params.Variables)
